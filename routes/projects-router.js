@@ -57,7 +57,22 @@ router.put('/:id', async (req, res, next) => {
     if (post) {
       res.status(201).json(post);
     } else {
-      res.status(404).json({ message: 'user ID not found' });
+      res.status(404).json({ message: 'user ID not found on update' });
+    }
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
+router.delete('/:id', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const removeProject = await projectModel.remove(id);
+    if (removeProject) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: 'user ID not found on delete' });
     }
   } catch (err) {
     console.log(err);
