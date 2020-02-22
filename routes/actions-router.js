@@ -11,6 +11,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:actionId', async (req, res, next) => {
+  const id = req.params.actionId;
+  try {
+    const getAction = await actionModel.get(id);
+    if (getAction) {
+      res.status(200).json(getAction);
+    } else {
+      res.status(404).json({ message: '404 action id not found' });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   const project_id = req.params.id;
   const { description, notes } = req.body;
@@ -56,6 +70,17 @@ router.put('/:actionId', async (req, res, next) => {
   try {
     const insertUpdate = await actionModel.update(id, updatePost);
     res.status(200).json(insertUpdate);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
+router.delete('/:actionId', async (req, res, next) => {
+  const id = req.params.actionId;
+  try {
+    const removeAction = await actionModel.remove(id);
+    res.status(204).end();
   } catch (err) {
     console.log(err);
     next(err);
