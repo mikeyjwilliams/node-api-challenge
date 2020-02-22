@@ -40,7 +40,11 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+- middleware
+- routing
+
 - [ ] Describe Middleware?
+- receives input does something to the data then sends it on its way.
 
 - [ ] Describe a Resource?
 
