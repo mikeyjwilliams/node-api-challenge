@@ -36,4 +36,30 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.put('/:actionId', async (req, res, next) => {
+  const id = req.params.actionId;
+  const project_id = req.params.id;
+  const { description, notes } = req.body;
+
+  if (!description) {
+    res.status(400).json({ message: 'description required for action post' });
+  }
+  if (!notes) {
+    res.status(400).json({ message: 'notes required for action post' });
+  }
+  const updatePost = {
+    project_id: project_id,
+    description: description,
+    notes: notes,
+    completed: req.body.completed,
+  };
+  try {
+    const insertUpdate = await actionModel.update(id, updatePost);
+    res.status(200).json(insertUpdate);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
 module.exports = router;
