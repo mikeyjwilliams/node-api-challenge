@@ -58,7 +58,7 @@ router.put('/:id', async (req, res, next) => {
   try {
     const post = await projectModel.update(id, projectUpdate);
     if (post) {
-      res.status(201).json(post);
+      res.status(200).json(post);
     } else {
       res.status(404).json({ message: 'user ID not found on update' });
     }
