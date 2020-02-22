@@ -36,4 +36,33 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.put('/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const { name, description } = req.body;
+  if (!name) {
+    return res.status(400).json({ message: 'name required for project' });
+  }
+  if (!description) {
+    return res
+      .status(400)
+      .json({ message: 'description required for project' });
+  }
+  const projectUpdate = {
+    name: name,
+    description: description,
+    completed: req.body.completed || false,
+  };
+  try {
+    const post = await projectModel.update(id, projectUpdate);
+    if (post) {
+      res.status(201).json(post);
+    } else {
+      res.status(404).json({ message: 'user ID not found' });
+    }
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
 module.exports = router;
