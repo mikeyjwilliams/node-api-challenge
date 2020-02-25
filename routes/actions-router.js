@@ -21,10 +21,12 @@ router.post('/', async (req, res, next) => {
   const { description, notes } = req.body;
 
   if (!description) {
-    res.status(400).json({ message: 'description required for action post' });
+    return res
+      .status(400)
+      .json({ message: 'description required for action post' });
   }
   if (!notes) {
-    res.status(400).json({ message: 'notes required for action post' });
+    return res.status(400).json({ message: 'notes required for action post' });
   }
   const actionPost = {
     project_id: project_id,
@@ -47,10 +49,12 @@ router.put('/:actionId', async (req, res, next) => {
   const { description, notes } = req.body;
 
   if (!description) {
-    res.status(400).json({ message: 'description required for action post' });
+    return res
+      .status(400)
+      .json({ message: 'description required for action post' });
   }
   if (!notes) {
-    res.status(400).json({ message: 'notes required for action post' });
+    return res.status(400).json({ message: 'notes required for action post' });
   }
   const updatePost = {
     project_id: project_id,
