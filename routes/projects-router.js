@@ -35,7 +35,7 @@ router.get('/:id/actions', async (req, res, next) => {
   try {
     const getActions = await projectModel.getProjectActions(id);
     if (getActions) {
-      res.status(200).json(getProjects);
+      res.status(200).json(getActions);
     } else {
       res.status(404).json({ message: 'could not ID of project' });
     }
