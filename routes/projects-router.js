@@ -15,6 +15,36 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const getProject = await projectModel.get(id);
+    if (getProject) {
+      res.status(200).json(getProject);
+    } else {
+      res.status(404).json({ message: 'project ID is not found' });
+    }
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
+router.get('/:id/actions', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const getActions = await projectModel.getProjectActions(id);
+    if (getActions) {
+      res.status(200).json(getProjects);
+    } else {
+      res.status(404).json({ message: 'could not ID of project' });
+    }
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   const { name, description } = req.body;
   if (!name) {
