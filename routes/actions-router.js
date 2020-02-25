@@ -75,7 +75,10 @@ router.delete('/:actionId', async (req, res, next) => {
   const id = req.params.actionId;
   try {
     const removeAction = await actionModel.remove(id);
-    res.status(204).end();
+    res
+      .status(204)
+      .json(removeAction)
+      .end();
   } catch (err) {
     console.log(err);
     next(err);
