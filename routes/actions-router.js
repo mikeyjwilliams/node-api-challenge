@@ -64,7 +64,11 @@ router.put('/:actionId', async (req, res, next) => {
   };
   try {
     const insertUpdate = await actionModel.update(id, updatePost);
-    res.status(200).json(insertUpdate);
+    if (insertUpdate) {
+      res.status(200).json(insertUpdate);
+    } else {
+      res.status(404).json({ message: 'could not find ID' });
+    }
   } catch (err) {
     console.log(err);
     next(err);
